@@ -32,7 +32,7 @@ export default class ComList extends Vue {
       },
       {
           name:'进度条',
-          path:'Process'
+          path:'Progress'
       },
   ];
   onClickLeft() {

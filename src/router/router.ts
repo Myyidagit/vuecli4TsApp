@@ -7,6 +7,7 @@ import QuesHome from "../views/quesHome/quesHome.vue"
 import Paper from "../views/paper/paper.vue"
 import SelfPage from "../views/selfCompontent/selfPage/selfPage.vue"
 import Svgcom from "../views/selfCompontent/svg/svgSuccess.vue"
+import Progress from "../views/selfCompontent/process/process.vue"
 const arr = [
         {
           path: '',
@@ -93,6 +94,15 @@ const arr = [
           meta: {
             level:2,
             title: 'svg组件'
+          }
+        },
+        {
+          path: '/progress',
+          name: 'Progress',
+          component:Progress,
+          meta: {
+            level:2,
+            title: '进度条'
           }
         },
         

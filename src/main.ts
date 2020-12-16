@@ -5,6 +5,7 @@ import store from './store'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import "@/assets/style/reset.css"
+import "@/assets/style/animate.css"
 import * as directives from "./directives/directives"
 Vue.config.productionTip = false;
 Vue.use(Vant);
