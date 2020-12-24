@@ -1,5 +1,5 @@
 <template>
-  <treeList :treeData="treeDatanew" :originData="treeDatanew" ref="tree"></treeList>
+  <treeList :treeData="treeDatanew" :originData="treeDatanew" :isSelectAll="isSelectAll" :isStrictly="isStrictly" ref="tree"></treeList>
 </template>
 
 <script>
@@ -24,6 +24,15 @@ export default {
     openAll: {
       type: Boolean,
       default: true
+    },
+    isSelectAll:{
+        type: Boolean,
+        default: false
+    },
+    //选中父节点是否要勾选子节点
+    isStrictly:{
+        type: Boolean,
+        default: true
     }
   },
   data() {
@@ -48,8 +57,10 @@ export default {
           let item = arr[i];
           if (item.children && Array.isArray(item.children)) {
             item.isOpen = _this.openAll;
+            item.isSelect = _this.isSelectAll;
             forFn(item.children);
           } else {
+            item.isSelect = _this.isSelectAll;
             item.isOpen = _this.openAll;
           }
         }

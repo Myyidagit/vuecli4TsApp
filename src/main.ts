@@ -6,9 +6,12 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import "@/assets/style/reset.css"
 import "@/assets/style/animate.css"
+import kyswitch from "kyswitch"
+import "kyswitch/lib/kyui.css"
 import * as directives from "./directives/directives"
 Vue.config.productionTip = false;
 Vue.use(Vant);
+Vue.use(kyswitch);
 
 Object.keys(directives).forEach(key => {
   Vue.directive(key, (directives as { [key: string ]: DirectiveOptions })[key])

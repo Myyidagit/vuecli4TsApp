@@ -5,6 +5,7 @@
     </div>
     
     <div class="conList_body">
+      <ky-switch></ky-switch>
         <!-- 成功的svg -->
       <div class="video-success">
         <svg class="checkmark" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -33,11 +34,13 @@
         </svg>
       </div>
     </div>
+    <div id="extendBox"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import alertCom from "../extend/alertCom.js"
 @Component({
   name: "svgcom"
 })
@@ -81,6 +84,13 @@ export default class Svg extends Vue {
         "Z";
       return d;
     
+  }
+  mounted() {
+     alertCom({
+       text:'dddddd',
+       duration:2000,
+       type:'success'
+     })
   }
 }
 </script>

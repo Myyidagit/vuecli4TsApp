@@ -8,7 +8,8 @@
           alt
           @click="openOption(item)"
         />
-        <van-switch v-model="item.isSelect" :size="switchSize" @change="changeSwitch(item,index)" />
+        <!-- <van-switch v-model="item.isSelect" :size="switchSize" @change="changeSwitch(item,index)" /> -->
+        <m-switch v-model="item.isSelect" @change="changeSwitch(item,index)"></m-switch>
         <span class="item_name">{{ item.name }}</span>
       </div>
       <!-- <transition enter-active-class="animatedb fadeIn" leave-active-class="animatedb fadeOut"> -->
@@ -22,9 +23,12 @@
 </template>
 
 <script>
+import mSwitch from "../switch/switch.vue"
 export default {
   name: "treelist",
-  components: {},
+  components: {
+    mSwitch
+  },
   props: {
       //树的数据
     treeData: {
@@ -40,10 +44,10 @@ export default {
         return [];
       }
     },
-    //是否遵循父子相关
+    //选中父节点是否要勾选子节点
     isStrictly: {
       type: Boolean,
-      default: false
+      default: true
     },
     //是否要展开全部
     openAll: {
@@ -66,12 +70,17 @@ export default {
     },
     //修改权限
     changeSwitch(authObj, i) {
+      console.log(authObj)
       if (!authObj.isSelect) {
         //取消勾选
         this.cancelSwitch(authObj, false);
       } else {
         //勾选中父节点
-        this.selectSwitch(authObj, true);
+        this.selectFather(authObj, true);
+        //将其一下的子节点勾选中
+        if(this.isStrictly){
+            this.selectChild(authObj, true);
+        }
       }
     },
     //递归遍历将下面的全部取消
@@ -91,12 +100,11 @@ export default {
       };
       cancel(authObj.children);
     },
-    //开启一个，向上找节点，并将选项置为true
-    selectSwitch(authObj, flag) {
+    //开启一个，向上找父节点，并将选项置为true
+    selectFather(authObj, flag) {
       let _this = this;
       //将数组降维逐级向上寻找父节点
       let newArr = this.downArr(_this.originData);
-      console.log(_this.treeData)
       let forFn = function(arr, pid) {
         if (!arr.length) return;
         for (let i = 0; i < arr.length; i++) {
@@ -110,9 +118,26 @@ export default {
       };
       forFn(newArr, authObj.pid);
     },
+    //开启一个，向下找子节点，并将选项置为true
+    selectChild(authObj, flag){
+        let _this = this;
+        //将数组降维逐级向上寻找父节点
+        let newArr = this.downArr(_this.originData);
+        let forFn = function(arr, id) {
+            if (!arr.length) return;
+            for (let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                //节点id == 子节点父id
+                if (item.pid == id) {
+                    item.isSelect = flag;
+                    forFn(newArr, item.id);
+                }
+            }
+        };
+        forFn(newArr, authObj.id);
+    },
     //数组降维
     downArr(arr) {
-         console.log(arr)
       var newArr = [];
       var reduceArr = function(arrArg) {
         if (!arrArg.length) return;

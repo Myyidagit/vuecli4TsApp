@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "cssnano": "^4.1.10",
+    "kyswitch": "^1.0.3",
     "postcss-aspect-ratio-mini": "^1.1.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-px-to-viewport": "^1.1.1",
