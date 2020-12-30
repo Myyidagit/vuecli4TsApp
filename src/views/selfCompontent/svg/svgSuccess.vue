@@ -87,10 +87,12 @@ export default class Svg extends Vue {
   }
   mounted() {
      alertCom({
-       text:'dddddd',
+       text:'不能大于1',
        duration:2000,
        type:'success'
      })
+     
+     console.log(this)
   }
 }
 </script>
